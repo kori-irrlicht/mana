@@ -31,10 +31,10 @@ func (g *Game) Running() bool {
 }
 
 func main() {
-	logrus.SetLevel(logrus.DebugLevel)
-
 	initViper()
+	initLogger()
 	window := initSDL()
+
 	defer sdl.Quit()
 	defer ttf.Quit()
 	defer window.Destroy()
@@ -87,4 +87,15 @@ func initSDL() *sdl.Window {
 		logrus.WithError(err).Panicln("Couldn't create window")
 	}
 	return window
+}
+
+func initLogger() {
+	switch viper.GetString("debug.logging") {
+	case "debug":
+		logrus.SetLevel(logrus.DebugLevel)
+	case "info":
+		logrus.SetLevel(logrus.InfoLevel)
+	default:
+		logrus.SetLevel(logrus.WarnLevel)
+	}
 }
