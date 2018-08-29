@@ -20,6 +20,10 @@ type Game struct {
 	running bool
 }
 
+func (g *Game) Input() {
+	g.manager.Input()
+}
+
 func (g *Game) Update() {
 	g.manager.Update()
 }
@@ -41,15 +45,7 @@ func main() {
 
 	game = newGame(window)
 
-	sdl.Main(func() {
-		go func() {
-			for game.Running() {
-				scene.DefaultManager.Input()
-			}
-		}()
-
-		mana.Run(game)
-	})
+	mana.Run(game)
 }
 
 func newGame(window *sdl.Window) *Game {
