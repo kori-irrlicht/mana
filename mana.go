@@ -8,12 +8,13 @@ import (
 	"github.com/kori-irrlicht/mana-engine/input"
 	"github.com/kori-irrlicht/mana-engine/scene"
 	"github.com/kori-irrlicht/mana/controller"
+	"github.com/kori-irrlicht/mana/holder"
 	"github.com/spf13/viper"
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
 )
 
-var fh = asset.NewHolder(&asset.TrueTypeFontLoader{})
+var fh = asset.NewHolder(&holder.TrueTypeFontLoader{})
 var game *Game
 
 type Game struct {
