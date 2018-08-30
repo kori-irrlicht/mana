@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/Sirupsen/logrus"
 	"github.com/kori-irrlicht/mana-engine/scene"
+	"github.com/kori-irrlicht/mana/controller"
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
 )
@@ -23,15 +22,8 @@ func (s *MainMenuScene) Entry() {
 func (s *MainMenuScene) Exit() {}
 
 func (s *MainMenuScene) Input() {
-
-	for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-		switch t := event.(type) {
-		case *sdl.QuitEvent:
-			game.running = false
-		case *sdl.KeyUpEvent:
-			fmt.Printf("[%d ms] Keyboard\ttype:%d\tsym:%c\tmodifiers:%d\tstate:%d\tscan:%d\n",
-				t.Timestamp, t.Type, t.Keysym.Sym, t.Keysym.Mod, t.State, t.Keysym.Scancode)
-		}
+	if game.controller.IsDown(controller.EXIT) {
+		game.running = false
 	}
 
 }

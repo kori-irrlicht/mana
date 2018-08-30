@@ -5,7 +5,9 @@ import (
 	"github.com/Sirupsen/logrus"
 	mana "github.com/kori-irrlicht/mana-engine"
 	"github.com/kori-irrlicht/mana-engine/asset"
+	"github.com/kori-irrlicht/mana-engine/input"
 	"github.com/kori-irrlicht/mana-engine/scene"
+	"github.com/kori-irrlicht/mana/controller"
 	"github.com/spf13/viper"
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
@@ -15,12 +17,14 @@ var fh = asset.NewHolder(&asset.TrueTypeFontLoader{})
 var game *Game
 
 type Game struct {
-	manager scene.Manager
-	window  *sdl.Window
-	running bool
+	manager    scene.Manager
+	window     *sdl.Window
+	running    bool
+	controller input.Controller
 }
 
 func (g *Game) Input() {
+	g.controller.Update()
 	g.manager.Input()
 }
 
@@ -55,6 +59,7 @@ func newGame(window *sdl.Window) *Game {
 	g.manager = scene.DefaultManager
 	g.manager.Register(NameMainMenu, &MainMenuScene{})
 	g.manager.StartWith(NameMainMenu)
+	g.controller = controller.NewSdlKeyboard()
 	return g
 }
 
