@@ -8,35 +8,37 @@ import (
 	"github.com/veandco/go-sdl2/ttf"
 )
 
-const NameMainMenu = "mainmenu"
+const NameIngame = "ingame"
 
-type MainMenuScene struct{}
-
-func (s *MainMenuScene) Entry() {
-	_, err := fh.Load("font", "assets/fonts/DroidSans.ttf", map[string]string{"size": "32"})
-	if err != nil {
-		logrus.WithError(err).Panicln("Couldn't load font")
-	}
+type IngameScene struct {
+	font *ttf.Font
 }
 
-func (s *MainMenuScene) Exit() {}
+func (s *IngameScene) Entry() {
+	_, err := fh.Load("font", "assets/fonts/DroidSans.ttf", map[string]string{"size": "32"})
+	if err != nil {
+		logrus.WithError(err).Errorln("Couldn't load font")
+	}
 
-func (s *MainMenuScene) Input() {
+	inf, _ := fh.Get("font")
+	s.font = inf.(*ttf.Font)
+
+}
+
+func (s *IngameScene) Exit() {}
+
+func (s *IngameScene) Input() {
 	if game.controller.IsDown(controller.EXIT) {
 		game.running = false
 	}
-	if game.controller.IsDown(controller.UP) {
-		game.manager.Next(NameIngame)
-	}
 
 }
 
-func (s *MainMenuScene) Update() {}
+func (s *IngameScene) Update() {}
 
-func (s *MainMenuScene) Render(float32) {
-	inf, _ := fh.Get("font")
-	font := inf.(*ttf.Font)
-	surf, err := font.RenderUTF8_Blended("Hallo Welt", sdl.Color{255, 0, 0, 255})
+func (s *IngameScene) Render(float32) {
+
+	surf, err := s.font.RenderUTF8_Blended("Ingame", sdl.Color{255, 0, 0, 255})
 	if err != nil {
 		logrus.WithError(err).Errorln("Could not render utf8")
 	}
@@ -45,14 +47,16 @@ func (s *MainMenuScene) Render(float32) {
 	if err != nil {
 		logrus.WithError(err).Panicln("Could not get surface from window")
 	}
+	winSurf.FillRect(nil, 0xffffff)
 	if err := surf.Blit(nil, winSurf, nil); err != nil {
 		logrus.WithError(err).Panicln("Could not blit surface")
 	}
 	game.window.UpdateSurface()
+
 }
 
-func (s *MainMenuScene) Ready() bool {
+func (s *IngameScene) Ready() bool {
 	return true
 }
 
-var _ scene.Scene = &MainMenuScene{}
+var _ scene.Scene = (*IngameScene)(nil)

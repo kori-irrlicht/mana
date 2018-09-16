@@ -59,6 +59,7 @@ func newGame(window *sdl.Window) *Game {
 	g.running = true
 	g.manager = scene.DefaultManager
 	g.manager.Register(NameMainMenu, &MainMenuScene{})
+	g.manager.Register(NameIngame, &IngameScene{})
 	g.manager.StartWith(NameMainMenu)
 	g.controller = controller.NewSdlKeyboard()
 	return g
