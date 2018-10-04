@@ -2,7 +2,7 @@ module github.com/kori-irrlicht/mana
 
 require (
 	github.com/fardog/tmx v0.0.0-20180927161427-1e9f886438e9
-	github.com/kori-irrlicht/mana-engine v0.0.0-20180905182541-7892db19479d
+	github.com/kori-irrlicht/mana-engine v0.0.0-20181004181500-bb6edeff7953
 	github.com/mitchellh/mapstructure v1.1.1 // indirect
 	github.com/sirupsen/logrus v1.1.0
 	github.com/spf13/pflag v1.0.3 // indirect
