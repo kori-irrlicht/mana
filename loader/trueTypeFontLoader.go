@@ -1,16 +1,16 @@
-package holder
+package loader
 
 import (
 	"strconv"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/kori-irrlicht/mana-engine/asset"
 	"github.com/veandco/go-sdl2/ttf"
 )
 
-type TrueTypeFontLoader struct{}
+type TrueTypeFont struct{}
 
-func (l *TrueTypeFontLoader) Load(name, file string, args map[string]string) (font interface{}, err error) {
+func (l *TrueTypeFont) Load(name, file string, args map[string]string) (font interface{}, err error) {
 	logrus.WithFields(logrus.Fields{
 		"file": file,
 		"name": name,
@@ -30,5 +30,5 @@ func (l *TrueTypeFontLoader) Load(name, file string, args map[string]string) (fo
 
 // Enforce interface implementation
 var (
-	_ asset.Loader = (*TrueTypeFontLoader)(nil)
+	_ asset.Loader = (*TrueTypeFont)(nil)
 )

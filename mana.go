@@ -2,19 +2,20 @@
 package main
 
 import (
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	mana "github.com/kori-irrlicht/mana-engine"
 	"github.com/kori-irrlicht/mana-engine/asset"
 	"github.com/kori-irrlicht/mana-engine/input"
 	"github.com/kori-irrlicht/mana-engine/scene"
 	"github.com/kori-irrlicht/mana/controller"
-	"github.com/kori-irrlicht/mana/holder"
+	"github.com/kori-irrlicht/mana/loader"
 	"github.com/spf13/viper"
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
 )
 
-var fh = asset.NewHolder(&holder.TrueTypeFontLoader{})
+var fh = asset.NewHolder(&loader.TrueTypeFont{})
+var tmxHolder = asset.NewHolder(&loader.Tmx{})
 var game *Game
 
 type Game struct {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/kori-irrlicht/mana-engine/scene"
 	"github.com/kori-irrlicht/mana/controller"
 	"github.com/veandco/go-sdl2/sdl"

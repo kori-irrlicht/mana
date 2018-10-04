@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/Sirupsen/logrus"
+	"fmt"
+
+	"github.com/sirupsen/logrus"
 	"github.com/kori-irrlicht/mana-engine/scene"
 	"github.com/kori-irrlicht/mana/controller"
 	"github.com/veandco/go-sdl2/sdl"
@@ -20,8 +22,16 @@ func (s *IngameScene) Entry() {
 		logrus.WithError(err).Errorln("Couldn't load font")
 	}
 
+	_, err = tmxHolder.Load("level1", "assets/tmx/unbenannt.tmx", nil)
+	if err != nil {
+		logrus.WithError(err).Errorln("Couldn't load font")
+	}
 	inf, _ := fh.Get("font")
+
 	s.font = inf.(*ttf.Font)
+
+	level1, _ := tmxHolder.Get("level1")
+	fmt.Println(level1)
 
 }
 
